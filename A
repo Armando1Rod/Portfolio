@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Armando Rodriguez Nava | Mechanical Engineering Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:          #080f1e;
+      --surface:     #0d1628;
+      --raised:      #132036;
+      --accent:      #4d8eff;
+      --accent-glow: rgba(77,142,255,0.18);
+      --text:        #eef2ff;
+      --text-2:      #8a9bc0;
+      --text-3:      #485c80;
+      --border:      rgba(77,142,255,0.1);
+      --border-h:    rgba(77,142,255,0.38);
+      --r:           14px;
+      --r-sm:        7px;
+      --r-pill:      100px;
+      --nav-h:       66px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      inset: 0 0 auto;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6%;
+      background: rgba(8,15,30,0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: var(--text-2);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--text); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: calc(var(--nav-h) + 4rem) 6% 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(77,142,255,0.11) 1px, transparent 1px);
+      background-size: 36px 36px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, var(--bg) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 840px; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+    }
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+    }
+    .hero-name .hl { color: var(--accent); }
+    .hero-sub {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(0.95rem, 2.2vw, 1.25rem);
+      font-weight: 300;
+      color: var(--text-2);
+      letter-spacing: -0.01em;
+      margin-bottom: 1.6rem;
+    }
+    .hero-desc {
+      font-size: 0.975rem;
+      color: var(--text-2);
+      line-height: 1.78;
+      max-width: 540px;
+      margin-bottom: 2.75rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.72rem 1.75rem;
+      border-radius: var(--r-sm);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.22s ease;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover {
+      background: #6ba5ff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px var(--accent-glow);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--text-2);
+      border: 1px solid var(--border-h);
+    }
+    .btn-outline:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    /* SECTIONS */
+    section { padding: 6rem 6%; }
+
+    .section-eyebrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .section-eyebrow::after {
+      content: '';
+      width: 36px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.85rem;
+    }
+    .section-sub {
+      font-size: 0.95rem;
+      color: var(--text-2);
+      line-height: 1.75;
+      max-width: 580px;
+      margin-bottom: 3.25rem;
+    }
+
+    /* ABOUT */
+    #about { background: var(--surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-photo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.4rem;
+      text-align: center;
+    }
+    .photo-circle {
+      width: 175px;
+      height: 175px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, var(--raised), rgba(77,142,255,0.2));
+      border: 2px solid var(--border-h);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      overflow: hidden;
+    }
+    .photo-circle img { width: 100%; height: 100%; object-fit: cover; }
+    .about-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .about-role { font-size: 0.78rem; color: var(--text-2); margin-top: 0.2rem; }
+    .social-links { display: flex; gap: 0.6rem; justify-content: center; }
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-2);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .social-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+    .about-bio {
+      font-size: 0.965rem;
+      color: var(--text-2);
+      line-height: 1.85;
+      margin-bottom: 2.25rem;
+    }
+    .about-bio strong { color: var(--text); font-weight: 500; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+    .stat-card {
+      background: var(--raised);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1rem 1.2rem;
+    }
+    .stat-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.63rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 0.4rem;
+    }
+    .stat-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.865rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    /* EXPERIENCE */
+    #experience { background: var(--bg); }
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      max-width: 860px;
+    }
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--r) var(--r) 0;
+      padding: 1.5rem 1.75rem;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .exp-card:hover {
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      border-color: var(--border-h);
+      border-left-color: var(--accent);
+    }
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.3rem;
+      flex-wrap: wrap;
+    }
+    .exp-role {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.975rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .exp-dates {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      background: var(--accent-glow);
+      border: 1px solid rgba(77,142,255,0.2);
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--r-pill);
+      white-space: nowrap;
+    }
+    .exp-org {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-2);
+      margin-bottom: 1rem;
+    }
+    .exp-points { display: flex; flex-direction: column; gap: 0.5rem; }
+    .exp-point {
+      font-size: 0.87rem;
+      color: var(--text-2);
+      line-height: 1.65;
+      padding-left: 1.1rem;
+      position: relative;
+    }
+    .exp-point::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.57em;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--text-3);
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--surface); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.4rem;
+    }
+    .project-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-h);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(77,142,255,0.15);
+    }
+    .card-thumb {
+      height: 172px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem 1.1rem;
+    }
+    .card-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: rgba(255,255,255,0.85);
+      padding: 0.28rem 0.7rem;
+      border-radius: var(--r-pill);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .card-body {
+      padding: 1.35rem 1.5rem 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.995rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 0.55rem;
+      letter-spacing: -0.01em;
+    }
+    .card-desc {
+      font-size: 0.845rem;
+      color: var(--text-2);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 1.15rem;
+    }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
+    .tag {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.22rem 0.62rem;
+      border-radius: var(--r-pill);
+      background: rgba(77,142,255,0.08);
+      color: var(--accent);
+      border: 1px solid rgba(77,142,255,0.18);
+    }
+    .card-cta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: gap 0.2s;
+    }
+    .card-cta:hover { gap: 0.6rem; }
+    .card-cta svg {
+      width: 13px; height: 13px;
+      fill: none; stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* SKILLS */
+    #skills { background: var(--bg); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.15rem;
+    }
+    .skill-cat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.35rem;
+      transition: border-color 0.2s;
+    }
+    .skill-cat:hover { border-color: var(--border-h); }
+    .skill-cat-head {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding-bottom: 0.9rem;
+      margin-bottom: 0.9rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .skill-cat-icon {
+      width: 29px; height: 29px;
+      border-radius: var(--r-sm);
+      background: var(--accent-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .skill-cat-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 0.42rem; }
+    .skill-pill {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--text-2);
+      background: var(--raised);
+      border: 1px solid var(--border);
+      border-radius: var(--r-pill);
+      padding: 0.26rem 0.68rem;
+      transition: all 0.18s;
+      cursor: default;
+    }
+    .skill-pill:hover { color: var(--accent); border-color: rgba(77,142,255,0.3); }
+
+    /* CONTACT */
+    #contact { background: var(--surface); text-align: center; }
+    #contact .section-eyebrow { justify-content: center; }
+    #contact .section-eyebrow::after { display: none; }
+    .contact-card {
+      max-width: 580px;
+      margin: 0 auto;
+      background: var(--raised);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 3rem 2.5rem;
+    }
+    .contact-card p {
+      font-size: 0.965rem;
+      color: var(--text-2);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .contact-btns { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; }
+
+    /* FOOTER */
+    footer {
+      padding: 1.75rem 6%;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      color: var(--text-3);
+    }
+
+    /* ANIMATIONS */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-photo-wrap { flex-direction: row; text-align: left; gap: 1.5rem; align-items: center; }
+      .photo-circle { width: 100px; height: 100px; font-size: 1.8rem; flex-shrink: 0; }
+      .social-links { justify-content: flex-start; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 4%; }
+      .nav-links { gap: 1.25rem; }
+      section { padding: 4.5rem 4%; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr; }
+      .exp-header { flex-direction: column; gap: 0.5rem; }
+    }
+    @media (max-width: 480px) {
+      .nav-links li:nth-child(n+4) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AR<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Mechanical Engineer</div>
+    <h1 class="hero-name">
+      Armando<br><span class="hl">Rodriguez Nava</span>
+    </h1>
+    <p class="hero-sub">M.S. Mechanical Engineering · San Jose State University</p>
+    <p class="hero-desc">
+      Hands-on engineer working at the intersection of precision design, structural simulation,
+      and hardware development. Targeting roles in robotics, semiconductor manufacturing, and aerospace systems.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="resume.pdf" class="btn btn-outline">Download Resume</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-eyebrow">01 · Background</div>
+    <h2 class="section-title">About Me</h2>
+    <p class="section-sub">The person behind the projects: background, motivations, and where I'm headed.</p>
+    <div class="about-grid fade-up">
+      <div class="about-photo-wrap">
+        <div class="photo-circle">
+          <!-- To add your photo: replace the A below with:
+               <img src="images/headshot.jpg" alt="Armando Rodriguez Nava"> -->
+          A
+        </div>
+        <div>
+          <div class="about-name">Armando Rodriguez Nava</div>
+          <div class="about-role">Mechanical Engineer · Bay Area</div>
+          <br>
+          <div class="social-links">
+            <a href="https://linkedin.com/in/armandorodriguez75" target="_blank" class="social-btn" title="LinkedIn">in</a>
+            <a href="mailto:Rodriguez.arm101@gmail.com" class="social-btn" title="Email">@</a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="about-bio">
+          I'm a <strong>mechanical engineering graduate student</strong> at San Jose State University (M.S., expected 2027),
+          building on a B.S. from UC Riverside (2025). My work spans precision stage design, structural FEA, and hands-on
+          hardware development across robotics, semiconductor manufacturing, and aerospace systems.
+          <br><br>
+          As president of SJSU's <strong>Precision Engineering Club</strong>, I'm leading a team designing a 1-axis laser tracker
+          targeting 10 µm RMS position accuracy. Alongside that, I'm currently a Powertrain Intern at Spartan Racing FSAE EV
+          and a robotics coach at Ustar STEM Lab, working with students from CAD model through to physical build.
+          <br><br>
+          I'm actively seeking full-time engineering roles in the Bay Area where I can contribute to cutting-edge hardware
+          in robotics, precision manufacturing, or aerospace.
+        </p>
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-label">Current Degree</div>
+            <div class="stat-value">M.S. Mechanical Engineering</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">University</div>
+            <div class="stat-value">San Jose State University</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Expected Graduation</div>
+            <div class="stat-value">2027</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Focus Areas</div>
+            <div class="stat-value">Precision Engineering · Robotics · Aerospace</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-eyebrow">02 · History</div>
+    <h2 class="section-title">Experience</h2>
+    <p class="section-sub">Roles where I have applied engineering skills in hands-on, real-world environments.</p>
+    <div class="exp-list" id="exp-list"></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-eyebrow">03 · Work</div>
+    <h2 class="section-title">Engineering Projects</h2>
+    <p class="section-sub">
+      A selection of hands-on projects spanning precision design, structural analysis, manufacturing, and energy systems.
+    </p>
+    <div class="projects-grid" id="projects-grid"></div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-eyebrow">04 · Capabilities</div>
+    <h2 class="section-title">Technical Skills</h2>
+    <p class="section-sub">
+      Tools, methods, and hardware I use to design, simulate, fabricate, and document engineering systems.
+    </p>
+    <div class="skills-grid" id="skills-grid"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-eyebrow">05 · Connect</div>
+    <h2 class="section-title">Let's Work Together</h2>
+    <div class="contact-card fade-up">
+      <p>
+        I'm currently open to full-time engineering roles in the Bay Area.
+        Whether you have an opportunity, a collaboration idea, or just want to connect about
+        precision engineering and hardware development, I'd love to hear from you.
+      </p>
+      <div class="contact-btns">
+        <a href="mailto:Rodriguez.arm101@gmail.com" class="btn btn-primary">Send Email</a>
+        <a href="https://linkedin.com/in/armandorodriguez75" class="btn btn-outline" target="_blank">LinkedIn</a>
+        <a href="resume.pdf" class="btn btn-outline">Download Resume</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Armando Rodriguez Nava · Mechanical Engineer</span>
+  <span>San Jose, CA · 2026</span>
+</footer>
+
+<script>
+/* EXPERIENCE DATA */
+const experience = [
+  {
+    role: "Powertrain Intern",
+    org: "Spartan Racing FSAE EV",
+    dates: "Jan 2026 - Present",
+    points: [
+      "Designed a chain tightening tool in SolidWorks, increasing mass from 180g to 242g to satisfy a stiffness requirement of no more than 0.02mm deflection under 100 N.",
+      "Ran 15 ANSYS FEA simulations to validate the tensioner against a 0.02mm deformation limit; design passed testing and is cleared for manufacturing.",
+      "Performed tolerance stack-up analysis with calipers and assisted in drivetrain assembly using alignment fixtures and rivet tools."
+    ]
+  },
+  {
+    role: "ME Instructor and Robotics Coach",
+    org: "Ustar STEM Lab",
+    dates: "Jan 2026 - Present",
+    points: [
+      "Guided 20 students from CAD model to physical robot build, incorporating early design changes to reduce build errors.",
+      "Taught Raspberry Pi electronics fundamentals using breadboards and Python 3, covering GPIO-controlled projects including blinking LEDs and doorbell circuits.",
+      "Fabricated custom robot components using a drill press, band sander, and Dremel tool, and produced supplemental parts in CAD."
+    ]
+  },
+  {
+    role: "Research Assistant",
+    org: "Mechanical Engineering Dept, UC Riverside",
+    dates: "Dec 2024 - Apr 2025",
+    points: [
+      "Diagnosed faults on a ProX DMP 300 industrial metal 3D printer, identifying a misaligned build plate and failed rubber seals.",
+      "Authored an SOP for the ProX DMP 300 that informed the department's decision to decommission the machine."
+    ]
+  },
+  {
+    role: "Project Manager / Corps Member",
+    org: "SJCC and College Corps",
+    dates: "Nov 2022 - Jan 2026",
+    points: [
+      "Serviced gas-powered outdoor equipment including chainsaws, leaf blowers, and weed trimmers.",
+      "Applied LOTO procedures to ensure safe equipment shutdown during all maintenance and repair operations."
+    ]
+  }
+];
+
+/* PROJECT DATA */
+const projects = [
+  {
+    title: "1-Axis Laser Tracker",
+    category: "SJSU Precision Engineering Club",
+    desc: "Leading a team designing and building a 1-axis laser tracker targeting 10 µm RMS position accuracy. Currently conducting error budget analysis across geometric, bearing, thermal, sensor, control, and environmental error sources.",
+    tags: ["Precision Engineering", "Error Budgeting", "GD&T", "Metrology"],
+    gradient: "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)",
+    link: "#"
+  },
+  {
+    title: "Wave Energy Harvesting Device",
+    category: "Senior Design - UCR",
+    desc: "Developed and assembled a water-turbine energy harvesting system with a 4-person team. Achieved 5% peak efficiency against a 30% theoretical target. Fabricated a custom 8x2 foot wave testing tank and executed system-level testing across ocean, pool, and custom tank environments.",
+    tags: ["SolidWorks", "System Integration", "Fabrication", "Testing"],
+    gradient: "linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%)",
+    link: "#"
+  },
+  {
+    title: "FSAE Chain Tightening Tool",
+    category: "Spartan Racing FSAE EV",
+    desc: "Designed a chain tightening tool in SolidWorks to meet a stiffness requirement of no more than 0.02mm deflection under 100 N. Validated with 15 ANSYS FEA simulations; design cleared for manufacturing.",
+    tags: ["SolidWorks", "ANSYS FEA", "GD&T", "Tolerance Analysis"],
+    gradient: "linear-gradient(135deg, #dc2626 0%, #f97316 100%)",
+    link: "#"
+  },
+  {
+    title: "ProX DMP 300 Diagnostic Assessment",
+    category: "Research - UCR",
+    desc: "Diagnosed faults on an industrial metal powder bed fusion printer, identifying a misaligned build plate and failed rubber seals. Authored an SOP that informed the department's decision to decommission the machine.",
+    tags: ["Metal LPBF", "SOP Writing", "Root Cause Analysis", "Process Documentation"],
+    gradient: "linear-gradient(135deg, #7c3aed 0%, #6366f1 100%)",
+    link: "#"
+  }
+];
+
+/* SKILLS DATA */
+const skills = [
+  {
+    icon: "⬡",
+    name: "CAD and Design",
+    items: ["SolidWorks", "CATIA", "AutoCAD", "GD&T", "Technical Drawings"]
+  },
+  {
+    icon: "⚙",
+    name: "Simulation and Analysis",
+    items: ["ANSYS FEA", "Stress Analysis", "Tolerance Stack-Up", "Error Budgeting", "DFM"]
+  },
+  {
+    icon: "🔩",
+    name: "Fabrication",
+    items: ["Hands-on Assembly", "Part Fabrication", "Metal LPBF", "FDM Prototyping", "Machine Maintenance"]
+  },
+  {
+    icon: "⌨",
+    name: "Programming",
+    items: ["Python", "MATLAB", "Raspberry Pi (GPIO)", "MS Office Suite", "Google Suite"]
+  },
+  {
+    icon: "🔧",
+    name: "Hand Tools and Hardware",
+    items: ["Calipers", "Digital Multimeter", "Drill Press", "Band Sander", "Dremel", "Wire Strippers", "Rivet Tools"]
+  },
+  {
+    icon: "📋",
+    name: "Methods and Documentation",
+    items: ["SOP Writing", "Root Cause Analysis", "Technical Report Writing", "Engineering Drawing Review"]
+  }
+];
+
+/* RENDER EXPERIENCE */
+const expList = document.getElementById('exp-list');
+experience.forEach((e, i) => {
+  const card = document.createElement('div');
+  card.className = 'exp-card fade-up';
+  card.style.transitionDelay = i * 0.07 + 's';
+  card.innerHTML = `
+    <div class="exp-header">
+      <div class="exp-role">${e.role}</div>
+      <div class="exp-dates">${e.dates}</div>
+    </div>
+    <div class="exp-org">${e.org}</div>
+    <div class="exp-points">
+      ${e.points.map(p => `<div class="exp-point">${p}</div>`).join('')}
+    </div>
+  `;
+  expList.appendChild(card);
+});
+
+/* RENDER PROJECTS */
+const arrowSVG = `<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
+const pgrid = document.getElementById('projects-grid');
+projects.forEach((p, i) => {
+  const card = document.createElement('div');
+  card.className = 'project-card fade-up';
+  card.style.transitionDelay = i * 0.07 + 's';
+  card.innerHTML = `
+    <div class="card-thumb" style="background:${p.gradient}">
+      <span class="card-badge">${p.category}</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">${p.title}</div>
+      <div class="card-desc">${p.desc}</div>
+      <div class="card-tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      <a href="${p.link}" class="card-cta">View Details ${arrowSVG}</a>
+    </div>
+  `;
+  pgrid.appendChild(card);
+});
+
+/* RENDER SKILLS */
+const sgrid = document.getElementById('skills-grid');
+skills.forEach((cat, i) => {
+  const el = document.createElement('div');
+  el.className = 'skill-cat fade-up';
+  el.style.transitionDelay = i * 0.06 + 's';
+  el.innerHTML = `
+    <div class="skill-cat-head">
+      <div class="skill-cat-icon">${cat.icon}</div>
+      <div class="skill-cat-name">${cat.name}</div>
+    </div>
+    <div class="skill-pills">
+      ${cat.items.map(s => `<span class="skill-pill">${s}</span>`).join('')}
+    </div>
+  `;
+  sgrid.appendChild(el);
+});
+
+/* SCROLL FADE-IN */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+/* ACTIVE NAV */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+</script>
+
+</body>
+</html>
